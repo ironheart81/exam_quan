@@ -1,13 +1,19 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: Service
 metadata:
-  name: exam-pvc
+  name: exam-deployment2
   labels:
-    name: exam-pvc
+    app: test
 spec:
-  storageClassName: standard
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
+  selector:
+    app: test
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      name: http
+      targetPort: 80
+    - protocol: TCP
+      port: 443
+      name: https
+      targetPort: 443
